@@ -23,7 +23,7 @@ app.get('/location', (request, response) => {
   try{
     let city = request.query.city;
 
-    let url =  `https://us1.locationiq.com/v1/search.php?key=${process.env.GEO_DATA_API_KEY}&q=${city}&format=json`;
+    let url =  `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${city}&format=json`;
 
     superagent.get(url).then(resultFromSuperAgent => {
       let finalObj = new Location(city, resultFromSuperAgent.body[0])
@@ -48,7 +48,7 @@ function Location(searchQuery, obj){
 app.get('/weather', (request, response) => {
   try{
     let search_query = request.query.search_query;
-    let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${search_query}&key=${process.env.WEATHER_DATA_API_KEY}&days=8`;
+    let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${search_query}&key=${process.env.WEATHER_API_KEY}&days=8`;
 
     superagent.get(url).then(resultsFromSuperAgent => {
       const data = resultsFromSuperAgent.body.data;
@@ -69,7 +69,7 @@ app.get('/weather', (request, response) => {
 app.get('/trails', (request, response) => {
   try {
     const {latitude, longitude} = request.query;
-    const key = process.env.HIKING_PROJECT_API_KEY;
+    const key = process.env.TRAIL_API_KEY ;
     const url = `https://www.hikingproject.com/data/get-trails?lat=${latitude}&lon=${longitude}&maxDistance=10&key=${key}`;
     console.log(request.query);
 
